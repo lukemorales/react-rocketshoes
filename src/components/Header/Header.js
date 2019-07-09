@@ -15,8 +15,8 @@ function Header({ cartSize }) {
 
       <Cart to="/cart">
         <div>
-          <strong>Meu Carrinho</strong>
-          <span>{cartSize === 1 ? `${cartSize} item` : `${cartSize} itens`}</span>
+          <strong>My Cart</strong>
+          <span>{cartSize === 1 ? `${cartSize} item` : `${cartSize} items`}</span>
         </div>
         <MdShoppingBasket size={36} color="#FFF" />
       </Cart>
