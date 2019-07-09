@@ -1,42 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete } from 'react-icons/md';
 import { Container, ProductTable, Total } from './Cart_Styles';
 
-export default class Cart extends Component {
-  state = {
-    newState: null,
-  };
-
-  render() {
-    return (
-      <Container>
-        <ProductTable>
-          <thead>
-            <tr>
-              <th />
-              <th>PRODUTO</th>
-              <th>QTD</th>
-              <th>SUBTOTAL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+function Cart({ cart }) {
+  return (
+    <Container>
+      <ProductTable>
+        <thead>
+          <tr>
+            <th />
+            <th>PRODUTO</th>
+            <th>QTD</th>
+            <th>SUBTOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map(product => (
+            <tr key={product.id}>
               <td>
-                <img
-                  src="https://static.netshoes.com.br/produtos/tenis-nike-wmns-downshifter-8-feminino/26/D12-9470-026/D12-9470-026_detalhe1.jpg?resize=280:280"
-                  alt=""
-                />
+                <img src={product.image} alt={product.title} />
               </td>
               <td>
-                <strong>Tênis muito massa</strong>
-                <span>R$ 129,90</span>
+                <strong>{product.title}</strong>
+                <span>{product.priceFormatted}</span>
               </td>
               <td>
                 <div>
                   <button type="button">
                     <MdRemoveCircleOutline size={20} color="#7159c1" />
                   </button>
-                  <input type="number" readOnly value={2} />
+                  <input type="number" readOnly value={product.amount} />
                   <button type="button">
                     <MdAddCircleOutline size={20} color="#7159c1" />
                   </button>
@@ -51,17 +45,23 @@ export default class Cart extends Component {
                 </button>
               </td>
             </tr>
-          </tbody>
-        </ProductTable>
+          ))}
+        </tbody>
+      </ProductTable>
 
-        <footer>
-          <button type="submit">Purchase</button>
-          <Total>
-            <span>TOTAL:</span>
-            <strong>R$ 1920,28</strong>
-          </Total>
-        </footer>
-      </Container>
-    );
-  }
+      <footer>
+        <button type="submit">Purchase</button>
+        <Total>
+          <span>TOTAL:</span>
+          <strong>R$ 1920,28</strong>
+        </Total>
+      </footer>
+    </Container>
+  );
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);
