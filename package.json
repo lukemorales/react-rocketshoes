@@ -15,6 +15,7 @@
     "reactotron-react-js": "^3.3.2",
     "reactotron-redux": "^3.1.1",
     "redux": "^4.0.3",
+    "redux-saga": "^1.0.5",
     "styled-components": "^4.3.2"
   },
   "scripts": {
