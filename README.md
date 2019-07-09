@@ -42,7 +42,6 @@ This project was developed at the [RocketSeat GoStack Bootcamp](https://rocketse
 -  [Redux](https://redux.js.org/)
 -  [React Router v4](https://github.com/ReactTraining/react-router)
 -  [styled-components](https://www.styled-components.com/)
--  [GitHub REST API v3](https://developer.github.com/v3/)
 -  [VS Code][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
 
 ## :information_source: How To Use
