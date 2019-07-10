@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { bindActionCreators } from 'redux';
@@ -65,6 +66,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch);
+
+Home.propTypes = {
+  addToCartRequest: PropTypes.func.isRequired,
+  amount: PropTypes.number,
+};
+
+Home.defaultProps = {
+  amount: 0,
+};
 
 export default connect(
   mapStateToProps,

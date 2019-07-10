@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete } from 'react-icons/md';
 import { bindActionCreators } from 'redux';
@@ -21,8 +22,8 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
         <thead>
           <tr>
             <th />
-            <th>PRODUTO</th>
-            <th>QTD</th>
+            <th>PRODUCT</th>
+            <th>AMOUNT</th>
             <th>SUBTOTAL</th>
           </tr>
         </thead>
@@ -61,7 +62,7 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
       </ProductTable>
 
       <footer>
-        <button type="submit">Purchase</button>
+        <button type="submit">Proceed to Checkout</button>
         <Total>
           <span>TOTAL:</span>
           <strong>{total}</strong>
@@ -84,6 +85,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch);
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf({
+    product: PropTypes.shape({
+      id: PropTypes.number,
+      image: PropTypes.string,
+      title: PropTypes.string,
+      priceFormatted: PropTypes.func,
+    }),
+  }).isRequired,
+  total: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,
