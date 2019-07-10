@@ -17,7 +17,7 @@ function* addToCart({ id }) {
   const amount = currentAmount + 1;
 
   if (amount > stockAmount) {
-    toast.error('Product amount not available in stock');
+    toast.error('Requested Amount is Out of Stock =/');
     return;
   }
 
@@ -29,7 +29,7 @@ function* addToCart({ id }) {
     const data = { ...response.data, amount: 1, priceFormatted: formatPrice(response.data.price) };
 
     yield put(addToCartSuccess(data));
-    history.push('/cart');
+    // history.push('/cart');
   }
 }
 
