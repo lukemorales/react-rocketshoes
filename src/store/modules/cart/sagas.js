@@ -4,11 +4,11 @@ import { toast } from 'react-toastify';
 import api from '../../../services/api';
 // import history from '../../../services/history';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
+import { setProductStatus } from '../products/actions';
 import { formatPrice } from '../../../utils/format';
 
 function* addToCart({ id }) {
-  const productData = yield select(state => state.productStore.find(p => p.id === id));
-  productData.loading = true;
+  yield put(setProductStatus(id, true));
 
   const productExists = yield select(state => state.cart.find(p => p.id === id));
 
@@ -19,23 +19,24 @@ function* addToCart({ id }) {
 
   const amount = currentAmount + 1;
 
-  if (amount > stockAmount) {
-    productData.loading = false;
-    toast.error('Requested Amount is Out of Stock =/');
-    return;
-  }
+  try {
+    if (amount > stockAmount) {
+      toast.error('Requested Amount is Out of Stock');
+      return;
+    }
 
-  if (productExists) {
-    productData.loading = false;
-    yield put(updateAmountSuccess(id, amount));
-  } else {
-    const response = yield call(api.get, `products/${id}`);
+    if (productExists) {
+      yield put(updateAmountSuccess(id, amount));
+    } else {
+      const response = yield call(api.get, `products/${id}`);
 
-    const data = { ...response.data, amount: 1, priceFormatted: formatPrice(response.data.price) };
+      const data = { ...response.data, amount: 1, priceFormatted: formatPrice(response.data.price) };
 
-    productData.loading = false;
-    yield put(addToCartSuccess(data));
-    // history.push('/cart');
+      yield put(addToCartSuccess(data));
+      // history.push('/cart');
+    }
+  } finally {
+    yield put(setProductStatus(id, false));
   }
 }
 

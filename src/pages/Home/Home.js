@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 import Loader from 'react-loader-spinner';
 import * as CartActions from '../../store/modules/cart/actions';
-import storeProducts from '../../store/modules/products/actions';
+import * as ProductActions from '../../store/modules/products/actions';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 import { ProductList } from './Home_Styles';
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
+  const products = useSelector(state => state.products);
 
   const amount = useSelector(state =>
     state.cart.reduce((sumAmount, product) => {
@@ -31,8 +31,7 @@ export default function Home() {
         loading: false,
       }));
 
-      dispatch(storeProducts(data));
-      setProducts(data);
+      dispatch(ProductActions.storeProducts(data));
     }
 
     loadProducts();
@@ -44,26 +43,27 @@ export default function Home() {
 
   return (
     <ProductList>
-      {products.map(product => (
-        <li key={product.id}>
-          <img src={product.image} alt={product.title} />
-          <strong>{product.title}</strong>
-          <span>{product.priceFormatted}</span>
+      {products &&
+        products.map(product => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
 
-          <button type="button" onClick={() => handleAddProduct(product.id)}>
-            {product.loading ? (
-              <Loader type="Oval" color="#FFF" height={16} width={16} />
-            ) : (
-              <div>
-                <MdAddShoppingCart size={16} color="#FFF" />
-                {amount[product.id] || 0}
-              </div>
-            )}
+            <button type="button" onClick={() => handleAddProduct(product.id)}>
+              {product.loading ? (
+                <Loader type="Oval" color="#FFF" height={16} width={24} />
+              ) : (
+                <div>
+                  <MdAddShoppingCart size={16} color="#FFF" />
+                  {amount[product.id] || 0}
+                </div>
+              )}
 
-            <span>ADD TO CART</span>
-          </button>
-        </li>
-      ))}
+              <span>ADD TO CART</span>
+            </button>
+          </li>
+        ))}
     </ProductList>
   );
 }
