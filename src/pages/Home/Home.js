@@ -7,6 +7,7 @@ import * as ProductActions from '../../store/modules/products/actions';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 import { ProductList } from './Home_Styles';
+import GridPlaceholder from '../../components/GridPlaceholder/GridPlaceholder';
 
 export default function Home() {
   const products = useSelector(state => state.products);
@@ -43,7 +44,9 @@ export default function Home() {
 
   return (
     <ProductList>
-      {products &&
+      {products === null ? (
+        <GridPlaceholder repeatCount={6} />
+      ) : (
         products.map(product => (
           <li key={product.id}>
             <img src={product.image} alt={product.title} />
@@ -63,7 +66,8 @@ export default function Home() {
               <span>ADD TO CART</span>
             </button>
           </li>
-        ))}
+        ))
+      )}
     </ProductList>
   );
 }

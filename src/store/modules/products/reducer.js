@@ -1,6 +1,6 @@
 import produce from 'immer';
 
-export default function products(state = [], action) {
+export default function products(state = null, action) {
   switch (action.type) {
     case '@products/STORE_PRODUCTS':
       return action.products;
