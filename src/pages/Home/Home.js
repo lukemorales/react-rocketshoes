@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
+import Loader from 'react-loader-spinner';
 import * as CartActions from '../../store/modules/cart/actions';
+import storeProducts from '../../store/modules/products/actions';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 import { ProductList } from './Home_Styles';
@@ -26,13 +28,15 @@ export default function Home() {
       const data = response.data.map(product => ({
         ...product,
         priceFormatted: formatPrice(product.price),
+        loading: false,
       }));
 
+      dispatch(storeProducts(data));
       setProducts(data);
     }
 
     loadProducts();
-  }, []);
+  }, [dispatch]);
 
   function handleAddProduct(id) {
     dispatch(CartActions.addToCartRequest(id));
@@ -47,10 +51,14 @@ export default function Home() {
           <span>{product.priceFormatted}</span>
 
           <button type="button" onClick={() => handleAddProduct(product.id)}>
-            <div>
-              <MdAddShoppingCart size={16} color="#FFF" />
-              {amount[product.id] || 0}
-            </div>
+            {product.loading ? (
+              <Loader type="Oval" color="#FFF" height={16} width={16} />
+            ) : (
+              <div>
+                <MdAddShoppingCart size={16} color="#FFF" />
+                {amount[product.id] || 0}
+              </div>
+            )}
 
             <span>ADD TO CART</span>
           </button>
