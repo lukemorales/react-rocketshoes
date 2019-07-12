@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 export default function GridPlaceholder({ repeatCount }) {
   const howMany = Array.from(Array(repeatCount).keys());
@@ -9,21 +9,28 @@ export default function GridPlaceholder({ repeatCount }) {
       {howMany.map(placeholder => (
         <li key={placeholder}>
           <div style={{ alignSelf: 'center' }}>
-            <Skeleton width={250} height={250} />
+            <Skeleton height={249} />
           </div>
           <strong>
-            <Skeleton />
+            <Skeleton width={220} />
+            <Skeleton width={150} />
           </strong>
-          <span>
-            <Skeleton />
-          </span>
-          <button type="button">
-            <div>
-              <Skeleton />
-            </div>
+          <div>
+            <span>
+              <Skeleton width={90} />
+            </span>
+            <button type="button">
+              <SkeletonTheme color="#7159c1" highlightColor="#444">
+                <Skeleton width={26} />
+              </SkeletonTheme>
 
-            <span />
-          </button>
+              <span>
+                <SkeletonTheme color="#997df5" highlightColor="#4e3b8c">
+                  <Skeleton width={150} />
+                </SkeletonTheme>
+              </span>
+            </button>
+          </div>
         </li>
       ))}
     </>
@@ -35,5 +42,5 @@ GridPlaceholder.propTypes = {
 };
 
 GridPlaceholder.defaultProps = {
-  repeatCount: 0,
+  repeatCount: 1,
 };

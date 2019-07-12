@@ -6,8 +6,8 @@ import * as CartActions from '../../store/modules/cart/actions';
 import * as ProductActions from '../../store/modules/products/actions';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
-import { ProductList } from './Home_Styles';
 import GridPlaceholder from '../../components/GridPlaceholder/GridPlaceholder';
+import { ProductList } from './Home_Styles';
 
 export default function Home() {
   const products = useSelector(state => state.products);
@@ -49,22 +49,27 @@ export default function Home() {
       ) : (
         products.map(product => (
           <li key={product.id}>
-            <img src={product.image} alt={product.title} />
+            <figure>
+              <img src={product.image} alt={product.title} />
+            </figure>
             <strong>{product.title}</strong>
-            <span>{product.priceFormatted}</span>
 
-            <button type="button" onClick={() => handleAddProduct(product.id)}>
-              {product.loading ? (
-                <Loader type="Oval" color="#FFF" height={16} width={24} />
-              ) : (
-                <div>
-                  <MdAddShoppingCart size={16} color="#FFF" />
-                  {amount[product.id] || 0}
-                </div>
-              )}
+            <div>
+              <span>{product.priceFormatted}</span>
 
-              <span>ADD TO CART</span>
-            </button>
+              <button type="button" onClick={() => handleAddProduct(product.id)}>
+                {product.loading ? (
+                  <Loader type="Oval" color="#FFF" height={16} width={24} />
+                ) : (
+                  <div>
+                    <MdAddShoppingCart size={16} color="#FFF" />
+                    {amount[product.id] || 0}
+                  </div>
+                )}
+
+                <span>ADD TO CART</span>
+              </button>
+            </div>
           </li>
         ))
       )}

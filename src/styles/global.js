@@ -14,9 +14,27 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #191920 url(${background}) no-repeat center top;
+    background: linear-gradient(-45deg, rgba(54,54,102,1) 0%, rgba(113,89,193,1) 100%);
     -webkit-font-smoothing: antialiased;
     color: #333;
+    height: 100vh;
+    position: relative;
+
+    &::before {
+      content: '';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      background: url(${background}) no-repeat center -60px/101vw;
+      z-index: -5;
+
+      @media (max-width: 1200px) {
+        background: url(${background}) no-repeat center top;
+      }
+
+    }
 
     &, input, button {
       font: 14px 'Ubuntu', sans-serif;
@@ -26,7 +44,7 @@ export default createGlobalStyle`
   #root{
     max-width: 1020px;
     margin: 0 auto;
-    padding: 0 20px 50px;
+    padding: 0 20px 20px;
   }
 
   button {
