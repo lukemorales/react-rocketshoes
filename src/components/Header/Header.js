@@ -7,7 +7,11 @@ import { Container, Cart } from './Header_Styles';
 import logo from '../../assets/images/logo.svg';
 
 export default function Header() {
-  const cartSize = useSelector(state => state.cart.length);
+  const cartSize = useSelector(state =>
+    state.cart.reduce((total, p) => {
+      return total + p.amount;
+    }, 0)
+  );
 
   return (
     <Container>
