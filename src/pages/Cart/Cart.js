@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete } from 'react-icons/md';
+import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete, MdRemoveShoppingCart } from 'react-icons/md';
 import * as CartActions from '../../store/modules/cart/actions';
-import { Container, ProductTable, Total } from './Cart_Styles';
 import { formatPrice } from '../../utils/format';
+import { Container, ProductTable, Total, EmptyCart, StartShopping } from './Cart_Styles';
 
 export default function Cart() {
   const total = useSelector(state =>
@@ -33,56 +33,70 @@ export default function Cart() {
 
   return (
     <Container>
-      <ProductTable>
-        <thead>
-          <tr>
-            <th />
-            <th>PRODUCT</th>
-            <th>AMOUNT</th>
-            <th>SUBTOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map(product => (
-            <tr key={product.id}>
-              <td>
-                <img src={product.image} alt={product.title} />
-              </td>
-              <td>
-                <strong>{product.title}</strong>
-                <span>{product.priceFormatted}</span>
-              </td>
-              <td>
-                <div>
-                  <button type="button" onClick={() => decrement(product)}>
-                    <MdRemoveCircleOutline size={20} color="#7159c1" />
-                  </button>
-                  <input type="number" readOnly value={product.amount} />
-                  <button type="button" onClick={() => incremenent(product)}>
-                    <MdAddCircleOutline size={20} color="#7159c1" />
-                  </button>
-                </div>
-              </td>
-              <td>
-                <strong>{product.subtotal}</strong>
-              </td>
-              <td>
-                <button type="button" onClick={() => dispatch(CartActions.removeFromCart(product.id))}>
-                  <MdDelete size={20} color="#7159c1" />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </ProductTable>
+      {cart.length === 0 ? (
+        <EmptyCart>
+          <MdRemoveShoppingCart />
 
-      <footer>
-        <button type="submit">Proceed to Checkout</button>
-        <Total>
-          <span>TOTAL:</span>
-          <strong>{total}</strong>
-        </Total>
-      </footer>
+          <div>
+            <h2>Oops...</h2>
+            <p>Looks like your shopping cart is empty!</p>
+            <StartShopping to="/">Start Shopping</StartShopping>
+          </div>
+        </EmptyCart>
+      ) : (
+        <>
+          <ProductTable>
+            <thead>
+              <tr>
+                <th />
+                <th>PRODUCT</th>
+                <th>AMOUNT</th>
+                <th>SUBTOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map(product => (
+                <tr key={product.id}>
+                  <td>
+                    <img src={product.image} alt={product.title} />
+                  </td>
+                  <td>
+                    <strong>{product.title}</strong>
+                    <span>{product.priceFormatted}</span>
+                  </td>
+                  <td>
+                    <div>
+                      <button type="button" onClick={() => decrement(product)}>
+                        <MdRemoveCircleOutline size={20} color="#7159c1" />
+                      </button>
+                      <input type="number" readOnly value={product.amount} />
+                      <button type="button" onClick={() => incremenent(product)}>
+                        <MdAddCircleOutline size={20} color="#7159c1" />
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <strong>{product.subtotal}</strong>
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => dispatch(CartActions.removeFromCart(product.id))}>
+                      <MdDelete size={20} color="#7159c1" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </ProductTable>
+
+          <footer>
+            <button type="submit">Proceed to Checkout</button>
+            <Total>
+              <span>TOTAL:</span>
+              <strong>{total}</strong>
+            </Total>
+          </footer>
+        </>
+      )}
     </Container>
   );
 }

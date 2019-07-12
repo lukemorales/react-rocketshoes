@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
@@ -75,6 +75,10 @@ export const ProductList = styled.ul`
           transition: 180ms ease-in-out;
 
           &:hover {
+            background: ${lighten(0.04, '#7159c1')};
+          }
+
+          &:active {
             background: ${darken(0.04, '#7159c1')};
           }
 
