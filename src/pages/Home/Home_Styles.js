@@ -22,6 +22,10 @@ export const ProductList = styled.ul`
     border-radius: 4px;
     padding: 20px;
 
+    &:hover figure img {
+      opacity: 0.9;
+    }
+
     figure {
       display: flex;
       justify-content: center;
@@ -44,6 +48,7 @@ export const ProductList = styled.ul`
         right: 0;
         max-height: 100%;
         margin: auto;
+        transition: opacity 150ms ease-in-out;
       }
     }
 
@@ -69,6 +74,7 @@ export const ProductList = styled.ul`
           border: 0;
           border-radius: 4px;
           overflow: hidden;
+          position: relative;
 
           display: flex;
           align-items: center;
@@ -82,18 +88,20 @@ export const ProductList = styled.ul`
             background: ${darken(0.04, '#7159c1')};
           }
 
-          div {
+          > div:first-child {
             display: flex;
             align-items: center;
             padding: 12px;
             background: rgba(0, 0, 0, 0.1);
+            position: absolute;
 
             svg {
               margin: 0 5px;
             }
           }
 
-          span {
+          > span:nth-child(2) {
+            padding: 12px;
             flex: 1;
             text-align: center;
             font-weight: bold;

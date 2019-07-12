@@ -58,7 +58,9 @@ export default function Cart() {
               {cart.map(product => (
                 <tr key={product.id}>
                   <td>
-                    <img src={product.image} alt={product.title} />
+                    <figure>
+                      <img src={product.image} alt={product.title} />
+                    </figure>
                   </td>
                   <td>
                     <strong>{product.title}</strong>
@@ -69,7 +71,7 @@ export default function Cart() {
                       <button type="button" onClick={() => decrement(product)}>
                         <MdRemoveCircleOutline size={20} color="#7159c1" />
                       </button>
-                      <input type="number" readOnly value={product.amount} />
+                      <input type="text" readOnly value={product.amount} />
                       <button type="button" onClick={() => incremenent(product)}>
                         <MdAddCircleOutline size={20} color="#7159c1" />
                       </button>

@@ -37,9 +37,13 @@ export const EmptyCart = styled.section`
   align-items: center;
   position: relative;
 
+  @media (max-width: 560px) {
+    min-height: 400px;
+  }
+
   svg {
     font-size: 260px;
-    color: #eeeef2;
+    color: #f3f3f6;
     position: absolute;
   }
 
@@ -108,7 +112,7 @@ export const ProductTable = styled.table`
 
   span {
     display: block;
-    margin-top: 2px;
+    margin-top: 4px;
     font-size: 18px;
     font-weight: bold;
   }
@@ -116,6 +120,7 @@ export const ProductTable = styled.table`
   div {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     input {
       border: 1px solid #ddd;
@@ -130,7 +135,8 @@ export const ProductTable = styled.table`
   button {
     background: none;
     border: 0;
-    padding: 6px;
+    padding: 6px 8px;
+    font-size: 28px;
   }
 `;
 

@@ -16,7 +16,9 @@ export default function Header() {
   return (
     <Container>
       <Link to="/">
-        <img src={logo} alt="RocketShoes" />
+        <figure>
+          <img src={logo} alt="RocketShoes" />
+        </figure>
       </Link>
 
       <Cart to="/cart">
@@ -25,6 +27,7 @@ export default function Header() {
           <span>{cartSize === 1 ? `${cartSize} product` : `${cartSize} products`}</span>
         </div>
         <MdShoppingCart size={36} color="#FFF" />
+        <span>{cartSize}</span>
       </Cart>
     </Container>
   );

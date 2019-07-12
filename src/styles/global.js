@@ -13,11 +13,15 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body {
+    height: 100%;
+    overflow: auto;
+  }
+
   body {
     background: linear-gradient(-45deg, rgba(54,54,102,1) 0%, rgba(113,89,193,1) 100%);
     -webkit-font-smoothing: antialiased;
     color: #333;
-    height: 100vh;
     position: relative;
 
     &::before {
@@ -37,8 +41,9 @@ export default createGlobalStyle`
     }
 
     &, input, button {
-      font: 14px 'Ubuntu', sans-serif;
+      font: 14px 'Ubuntu', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
   }
 
   #root{

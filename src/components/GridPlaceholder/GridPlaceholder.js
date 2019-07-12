@@ -8,25 +8,25 @@ export default function GridPlaceholder({ repeatCount }) {
     <>
       {howMany.map(placeholder => (
         <li key={placeholder}>
-          <div style={{ alignSelf: 'center' }}>
+          <figure style={{ alignSelf: 'center' }}>
             <Skeleton height={249} />
-          </div>
+          </figure>
           <strong>
             <Skeleton width={220} />
             <Skeleton width={150} />
           </strong>
           <div>
             <span>
-              <Skeleton width={90} />
+              <Skeleton width={100} />
             </span>
             <button type="button">
-              <SkeletonTheme color="#7159c1" highlightColor="#444">
+              {/* <SkeletonTheme color="#7159c1" highlightColor="#444">
                 <Skeleton width={26} />
-              </SkeletonTheme>
+              </SkeletonTheme> */}
 
-              <span>
-                <SkeletonTheme color="#997df5" highlightColor="#4e3b8c">
-                  <Skeleton width={150} />
+              <span style={{ height: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                <SkeletonTheme color="#997df5" highlightColor="#8a6cea">
+                  <Skeleton width={92} />
                 </SkeletonTheme>
               </span>
             </button>
