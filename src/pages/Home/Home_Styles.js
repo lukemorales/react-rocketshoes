@@ -95,6 +95,18 @@ export const ProductList = styled.ul`
             background: rgba(0, 0, 0, 0.1);
             position: absolute;
 
+            @media (max-width: 680px) {
+              position: initial;
+            }
+
+            @media (max-width: 490px) {
+              position: absolute;
+            }
+
+            @media (max-width: 360px) {
+              position: initial;
+            }
+
             svg {
               margin: 0 5px;
             }
