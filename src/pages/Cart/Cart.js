@@ -23,7 +23,7 @@ export default function Cart() {
 
   const dispatch = useDispatch();
 
-  function incremenent(product) {
+  function increment(product) {
     dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
   }
 
@@ -72,7 +72,7 @@ export default function Cart() {
                         <MdRemoveCircleOutline size={20} color="#7159c1" />
                       </button>
                       <input type="text" readOnly value={product.amount} />
-                      <button type="button" onClick={() => incremenent(product)}>
+                      <button type="button" onClick={() => increment(product)}>
                         <MdAddCircleOutline size={20} color="#7159c1" />
                       </button>
                     </div>
